@@ -1,0 +1,3 @@
+*.exe
+cores/*/*.html
+cores/mame2003-plus/datmagic
