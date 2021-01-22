@@ -7,10 +7,25 @@ stages:
   variables:
     MEDIA_PATH: .media
   script:
+
+    # MAME 2003
+    - mkdir -p ${MEDIA_PATH}/${CI_PROJECT_NAME}/site/cores/mame2003
+    - cd cores/mame2003 && make && ./datmagic && cd -
+    - cp -f cores/mame2003/mame2003.html ${MEDIA_PATH}/${CI_PROJECT_NAME}/site/cores/mame2003
+
+    # MAME 2003-Plus
     - mkdir -p ${MEDIA_PATH}/${CI_PROJECT_NAME}/site/cores/mame2003-plus
     - cd cores/mame2003-plus && make && ./datmagic && cd -
     - cp -f cores/mame2003-plus/mame2003-plus.html ${MEDIA_PATH}/${CI_PROJECT_NAME}/site/cores/mame2003-plus
+
+    # MAME 2010
+    - mkdir -p ${MEDIA_PATH}/${CI_PROJECT_NAME}/site/cores/mame2010
+    - cd cores/mame2010 && make && ./datmagic && cd -
+    - cp -f cores/mame2010/mame2010.html ${MEDIA_PATH}/${CI_PROJECT_NAME}/site/cores/mame2010
+
+    # Main index page
     - cp -f index.html ${MEDIA_PATH}/${CI_PROJECT_NAME}/site
+
   artifacts:
     paths:
     - ${MEDIA_PATH}
