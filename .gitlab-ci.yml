@@ -23,6 +23,11 @@ stages:
     - cd cores/mame2010 && make && ./datmagic && cd -
     - cp -f cores/mame2010/mame2010.html ${MEDIA_PATH}/${CI_PROJECT_NAME}/site/cores/mame2010
 
+    # MAME 2015
+    - mkdir -p ${MEDIA_PATH}/${CI_PROJECT_NAME}/site/cores/mame2015
+    - cd cores/mame2015 && unzip mame2015.zip && make && ./datmagic && rm mame2015.xml && cd -
+    - cp -f cores/mame2015/mame2015.html ${MEDIA_PATH}/${CI_PROJECT_NAME}/site/cores/mame2015
+
     # Main index page
     - cp -f index.html ${MEDIA_PATH}/${CI_PROJECT_NAME}/site
 
