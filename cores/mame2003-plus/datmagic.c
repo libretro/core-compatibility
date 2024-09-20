@@ -366,10 +366,6 @@ int main()
 					fputs( biosused, write );
 				fputs( "</td>\n\t\t</tr>\n", write );
 			}
-
-			/***************** Reset flags *****************/
-			parentsample = 0;
-			clonesample = 0;
 		}
 
 		free( target );
