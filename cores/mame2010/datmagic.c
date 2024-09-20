@@ -1,6 +1,6 @@
 /*
 
-	Beta version 5  -  Jan. 17th 2021
+	Beta version 6  -  Jan. 17th 2021
 	by: mahoneyt944 - MAME 2003-Plus Team.
 
 	- This version has been modified for use with MAME2010
@@ -60,8 +60,8 @@ int main()
 	char graphic[]         = "graphic=\"";
 	char protection[]      = "protection=\"";
 
-	/***************** Flags and counters *****************/
-	int found=0, parentsample=0, clonesample=0;
+	/***************** Counter *****************/
+	int found=0;
 
 	/***************** Allocate memory to use *****************/
 	char *romname          = malloc(sizeof(char) * 30);
@@ -167,7 +167,6 @@ int main()
 					target = ( char * )malloc( end - start + 1 );
 					memcpy( target, start, end - start );
 					target[end - start] = '\0';
-					clonesample = 1;
 
 					strcpy( sampleused, target );
 				}
@@ -191,14 +190,14 @@ int main()
 		}
 
 		/***************** Read sample tag *****************/
-		else if ( (start = strstr( readline, sample_id )) && !(parentsample) )
+		else if ( (start = strstr( readline, sample_id )) && (sampleused[0] == '\0') )
 		{
 			if (( start = strstr( readline, name ) ))
 			{
 				start += strlen( name );
 				if (( end = strstr( start, "\"" ) ))
 				{
-					parentsample = 1;
+					strcpy( sampleused, romname );
 				}
 			}
 		}
@@ -309,11 +308,6 @@ int main()
 		{
 			if ( romname[0] != '\0' )
 			{
-				/***************** Configure parent sample *****************/
-				if ( parentsample && !clonesample ) strcpy( sampleused, romname );
-				else if ( !parentsample && !clonesample ) sampleused[0] = '\0';
-
-
 				/***************** Write out html table data *****************/
 				fputs( "\t\t<tr>\n\t\t\t<td>", write );
 				fputs( romname, write );
@@ -374,10 +368,6 @@ int main()
 					fputs( biosused, write );
 				fputs( "</td>\n\t\t</tr>\n", write );
 			}
-
-			/***************** Reset flags *****************/
-			parentsample = 0;
-			clonesample = 0;
 		}
 
 		free( target );
