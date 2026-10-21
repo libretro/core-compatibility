@@ -9,7 +9,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define MAXCHAR 250
+#define MAXCHAR 300
 
 void banner(void)
 {
